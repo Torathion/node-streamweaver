@@ -22,7 +22,7 @@
     "streams",
     "nodejs",
     "readable",
-    "utility",
+    "utility"
   ],
   "author": "Torathion",
   "homepage": "https://github.com/Torathion/node-streamweaver",

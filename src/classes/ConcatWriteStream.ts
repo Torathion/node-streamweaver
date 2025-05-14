@@ -82,7 +82,7 @@ function concatBufferLike(parts: StreamData[]): Buffer[] {
   const bufs = new Array(len)
   for (let i = 0; i < len; i++) {
     const p = parts[i]
-    bufs[i] = isBufferLike(p) ? bufferFrom(p) : bufferFrom(isObj(p) ? toObjString(p) : `${p}`)
+    bufs[i] = isBufferLike(p) ? bufferFrom(p) : bufferFrom(isObj(p) ? toObjString(p) : p)
   }
   return bufs
 }
