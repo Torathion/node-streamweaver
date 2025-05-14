@@ -1,6 +1,6 @@
 {
-  "name": "streamweaver",
-  "version": "1.0.0",
+  "name": "node-streamweaver",
+  "version": "1.0.1",
   "description": "Extended promises with a lot of vital features. The AIO Promise class.",
   "types": "./index.d.ts",
   "main": "./dist/index.js",
@@ -19,21 +19,19 @@
     "test": "vitest"
   },
   "keywords": [
-    "promise",
-    "abort",
-    "interrupt",
-    "timeout",
-    "data structure",
-    "utility"
+    "streams",
+    "nodejs",
+    "readable",
+    "utility",
   ],
   "author": "Torathion",
-  "homepage": "https://github.com/Torathion/streamweaver",
+  "homepage": "https://github.com/Torathion/node-streamweaver",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Torathion/streamweaver.git"
+    "url": "git+https://github.com/Torathion/node-streamweaver.git"
   },
   "bugs": {
-    "url": "https://github.com/Torathion/streamweaver/issues"
+    "url": "https://github.com/Torathion/node-streamweaver/issues"
   },
   "sideEffects": false,
   "type": "module",
