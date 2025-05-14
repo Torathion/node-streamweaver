@@ -1,14 +1,10 @@
+import type { SingleLineLogger } from 'src/types'
 import stringWidth from 'string-width'
 
 // ANSI escape codes as Buffers converted to strings
 const MOVE_LEFT = Buffer.from('1b5b3130303044', 'hex').toString()
 const MOVE_UP = Buffer.from('1b5b3141', 'hex').toString()
 const CLEAR_LINE = Buffer.from('1b5b304b', 'hex').toString()
-
-interface SingleLineLogger {
-  (...args: any[]): void
-  clear: () => void
-}
 
 export default function singleLineLog(stream: NodeJS.WriteStream): SingleLineLogger {
   let currentOutput: string | null = null

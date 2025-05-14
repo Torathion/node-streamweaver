@@ -1,27 +1,9 @@
 import { type ReadStream, statSync } from 'node:fs'
-import { isReadable, Readable, Transform, type TransformOptions } from 'node:stream'
+import { isReadable, Readable, Transform } from 'node:stream'
+import type { ProgressOptions, ProgressStreamState } from 'src/types'
 import type { StreamData } from 'src/types/types'
 import type { SimpleVoidFunction } from 'typestar'
 import throughput from '../utils/throughput'
-
-export interface ProgressOptions extends TransformOptions {
-  drain: boolean
-  length: number
-  speed: number
-  time: number
-  transferred: number
-}
-
-export interface ProgressStreamState {
-  delta: number
-  eta: number
-  length: number
-  percentage: number
-  remaining: number
-  runtime: number
-  speed: number
-  transferred: number
-}
 
 interface HttpSource extends Readable {
   headers?: {
@@ -130,6 +112,11 @@ export default class ProgressStream extends Transform {
     callback?.(null, chunk)
   }
 
+  /**
+   *  Returns the current progress state of the stream.
+   *
+   *  @returns The current progress state.
+   */
   progress(): ProgressStreamState {
     const state = this.#state
     state.speed = this.#speed(0)
@@ -137,6 +124,11 @@ export default class ProgressStream extends Transform {
     return state
   }
 
+  /**
+   * Sets the total length of the data being processed.
+   *
+   * @param newLength - The new total length.
+   */
   setLength(newLength: number): void {
     const len = (this.#length = newLength)
     this.#state.length = len

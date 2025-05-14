@@ -1,23 +1,23 @@
 import { Writable } from 'node:stream'
 import { isTypedArray } from 'node:util/types'
-import type { ConcatWriteStreamEncoding, StreamData } from 'src/types/types'
+import type { StreamData, StreamEncoding } from 'src/types/types'
 import type { AnyArray, AnyObject, SimpleVoidFunction } from 'typestar'
 import { isArray, isObj, isString, mergeArr, toObjString } from 'compresso'
 import { bufferFrom } from 'src/constants'
 
-type StreamDataEncoded<T extends ConcatWriteStreamEncoding | undefined> = T extends 'string'
+type StreamDataEncoded<T extends StreamEncoding | undefined> = T extends 'string'
   ? string
   : T extends 'buffer'
-  ? Buffer
-  : T extends 'u8' | 'uint8' | 'uint8array'
-  ? Uint8Array
-  : T extends 'array'
-  ? AnyArray<unknown>
-  : T extends 'objects'
-  ? AnyObject
-  : StreamData
+    ? Buffer
+    : T extends 'u8' | 'uint8' | 'uint8array'
+      ? Uint8Array
+      : T extends 'array'
+        ? AnyArray<unknown>
+        : T extends 'objects'
+          ? AnyObject
+          : StreamData
 
-export default class ConcatWriteStream<T extends ConcatWriteStreamEncoding> extends Writable {
+export default class ConcatWriteStream<T extends StreamEncoding> extends Writable {
   private readonly body: StreamData[]
   private encoding?: string
   private readonly shouldInferEncoding: boolean
@@ -87,7 +87,7 @@ function concatBufferLike(parts: StreamData[]): Buffer[] {
   return bufs
 }
 
-function inferEncoding(body: StreamData[], buffer?: StreamData): ConcatWriteStreamEncoding {
+function inferEncoding(body: StreamData[], buffer?: StreamData): StreamEncoding {
   const first = buffer ?? body[0]
   if (Buffer.isBuffer(first)) return 'buffer'
   if (first instanceof Uint8Array) return 'uint8array'
